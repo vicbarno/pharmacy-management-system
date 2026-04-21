@@ -55,7 +55,26 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+import os
+import dj_database_url
 
+DEBUG = False
+
+ALLOWED_HOSTS = ['*']  # Render will handle domain
+
+# Static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    ...
+]
+
+# Database (Render will provide DATABASE_URL)
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+}
 ROOT_URLCONF = 'pharmacy.urls'
 
 TEMPLATES = [
