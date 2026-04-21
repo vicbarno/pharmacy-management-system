@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: pharmacy-api
+    runtime: python
+    pythonVersion: 3.11
+    buildCommand: "./build.sh"
+    startCommand: "cd pharmacy && gunicorn pharmacy.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        scope: runtime
+      - key: SECRET_KEY
+        scope: runtime
+      - key: DJANGO_LOG_LEVEL
+        value: "INFO"
+        scope: runtime
